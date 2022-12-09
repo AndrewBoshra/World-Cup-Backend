@@ -1,6 +1,6 @@
 function createUserViewModel(data){
-    const {username,firstName,lastName,birthDate,gender,nationality,email,roles} = data;
-    return {username,firstName,lastName,birthDate,gender,nationality,email,roles};
+    const {id,username,firstName,lastName,birthDate,gender,nationality,email,roles} = data;
+    return {id,username,firstName,lastName,birthDate,gender,nationality,email,roles};
 }
 
 

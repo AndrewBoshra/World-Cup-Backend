@@ -1,14 +1,20 @@
-const bcrypt = require('bcrypt');
-const User = require('../models/db_models/user');
-const validator = require('validator');
-const AppError = require('../models/app-error');
-const AppResponse = require('../models/app-response');
-const utils = require('../utils/index');
-const { createUserViewModel } = require('../models/view-models/user');
-const { requiredField, nonEmpty } = require('../utils/validators');
+const bcrypt = require("bcrypt");
+const User = require("../models/db_models/user");
+const validator = require("validator");
+const AppError = require("../models/app-error");
+const AppResponse = require("../models/app-response");
+const utils = require("../utils/index");
+const { createUserViewModel } = require("../models/view-models/user");
+const { requiredField, nonEmpty } = require("../utils/validators");
 
 function isStrongPassword(pwd) {
-    return validator.isStrongPassword(pwd, { minLength: 8, minLowercase: 0, minNumbers: 0, minSymbols: 0, minUppercase: 0 });
+    return validator.isStrongPassword(pwd, {
+        minLength: 8,
+        minLowercase: 0,
+        minNumbers: 0,
+        minSymbols: 0,
+        minUppercase: 0,
+    });
 }
 
 async function register(req, res) {
@@ -22,11 +28,25 @@ async function register(req, res) {
 
     req.body.password = await bcrypt.hash(passwordRaw, 10);
 
-    const body = utils.readKeys(['username', 'password', 'firstName', 'lastName', 'birthDate', 'gender', 'nationality', 'email'], req.body);
+    const body = utils.readKeys(
+        [
+            "username",
+            "password",
+            "firstName",
+            "lastName",
+            "birthDate",
+            "gender",
+            "nationality",
+            "email",
+        ],
+        req.body
+    );
 
-    body.roles = {
-        role: "Fan"
-    };
+    body.roles = [
+        {
+            role: "Fan",
+        },
+    ];
 
     const user = new User(body);
     await user.save();
@@ -43,9 +63,9 @@ async function login(req, res) {
     requiredField(email, "email");
     nonEmpty(email, "email");
 
-    const user =await User.findOne({
-        email
-    }).select('+password');
+    const user = await User.findOne({
+        email,
+    }).select("+password");
 
     if (!user) {
         throw new AppError("user not found", 404);
@@ -57,13 +77,13 @@ async function login(req, res) {
     }
     const data = {
         ...createUserViewModel(user),
-        token: await user.getToken()
+        token: await user.getToken(),
     };
 
     new AppResponse(res, data, 200).send();
 }
 
-
 module.exports = {
-    register,login
-}
+    register,
+    login,
+};
