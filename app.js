@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const morgan = require('morgan');
-const errorHandler=require('./middlwares/error-handler');
+const errorHandler=require('./middlewares/error-handler');
 const indexRouter = require('./routes/index');
 
 const app = express();

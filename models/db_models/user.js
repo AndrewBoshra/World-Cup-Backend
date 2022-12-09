@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const data = require('../../data/index');
 const validator=require('validator');
+const config=require('../../config/index')
+const jwt=require('jsonwebtoken')
 
 const rolesSchema = new Schema({
     role: {
@@ -37,32 +39,61 @@ const userSchema = new Schema({
         required: '{PATH} is required!',
     },
     gender: {
-        type:[String],
+        type: String,
         required: '{PATH} is required!',
         enum: ['male', 'female']
     },
     nationality:
     {
-        type:[String],
+        type:String,
         enum: data.nationalities,
     },
     email:{
-        type:[String],
-        validate: [ validator.isEmail, 'invalid {PATH}' ],
-        required:'{PATH} is required'
+        type:String,
+        required:'{PATH} is required',
+        validate: [ validator.isEmail, 'invalid email' ],
+        unique: true,
     },
-    roles: [rolesSchema]
+    roles:{
+        type:[rolesSchema],
+        // autopopulate: true
+    } 
 
 });
-
+// userSchema.plugin(require('mongoose-autopopulate'));
 
 const User = mongoose.model('User', userSchema);
+/**
+ * @returns array of user rules eg: ['fan','manager']
+ */
+User.prototype.getRoles=function () {
+    return this.roles.map(r=>r.role);
+}
+
+/**
+ * @returns true if user is admin
+ */
+User.prototype.isAdmin=function () {
+    return this.getRoles().includes("Admin");
+}
+/**
+ * @returns true if user is manager
+ */
+User.prototype.isManager=function () {
+    return this.getRoles().includes("Manager");
+}
+
+User.prototype.getToken=async function () {
+    const payload = {
+        userID: this._id,
+        isAdmin: this.isAdmin(),
+        isManager: this.isManager(),
+    };
+    const token = jwt.sign(payload, config.JWT_PASSWORD, {
+		expiresIn: '24h',
+	});
+	return token;
+}
 
 module.exports = User;
 
-/*
-    roles:[
-        {role: "Admin"},
-        {role: "Fan"}
-    ]
-*/
