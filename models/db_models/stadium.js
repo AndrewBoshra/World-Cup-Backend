@@ -6,6 +6,7 @@ const stadiumSchema = new Schema({
     name:{
         required: '{PATH} is required!'
     }
+    //TODO : Add image , description 
 });
 
 

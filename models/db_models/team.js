@@ -6,6 +6,7 @@ const teamSchema = new Schema({
     name:{
         required: '{PATH} is required!'
     }
+    //TODO : add flag image 
 });
 
 
