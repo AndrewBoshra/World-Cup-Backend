@@ -41,7 +41,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"password\":\"12345678\",\n    \"firstName\":\"Andrew\",\n    \"lastName\":\"Boshra\",\n    \"birthDate\":\"2000-12-7\",\n    \"username\":\"mmmmm\",\n    \"gender\":\"male\",\n    \"email\":\"mmm@mmm.com\",\n    \"nationality\":\"Egyptian\"\n}",
+							"raw": "{\n    \"password\":\"12345678\",\n    \"firstName\":\"andrew\",\n    \"lastName\":\"boshra\",\n    \"birthDate\":\"2000-12-7\",\n    \"username\":\"andrew\",\n    \"gender\":\"male\",\n    \"email\":\"andrew@boshra.com\",\n    \"nationality\":\"Egyptian\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -69,7 +69,16 @@
 					"name": "Nationalities",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "{{url}}data/nationalities",
+							"host": [
+								"{{url}}data"
+							],
+							"path": [
+								"nationalities"
+							]
+						}
 					},
 					"response": []
 				}
@@ -79,17 +88,103 @@
 			"name": "user",
 			"item": [
 				{
+					"name": "admin",
+					"item": [
+						{
+							"name": "delete user",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}users/:id",
+									"host": [
+										"{{url}}users"
+									],
+									"path": [
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "6393ae55509c1246ed236177"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete user",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"isManager\": false,\n    \"isFan\":true\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}users/:id",
+									"host": [
+										"{{url}}users"
+									],
+									"path": [
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "63937f9f66531aaaadbcf604"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get all",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}users/",
+									"host": [
+										"{{url}}users"
+									],
+									"path": [
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
 					"name": "profile",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}users/nationalities",
+							"raw": "{{url}}users/profile",
 							"host": [
 								"{{url}}users"
 							],
 							"path": [
-								"nationalities"
+								"profile"
 							]
 						}
 					},
@@ -100,13 +195,22 @@
 					"request": {
 						"method": "PATCH",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\":\"3mna\",\n    \"lastName\":\"3mna\",\n    \"nationality\": \"Egyptian\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{url}}users/profile",
+							"raw": "{{url}}users/",
 							"host": [
 								"{{url}}users"
 							],
 							"path": [
-								"profile"
+								""
 							]
 						}
 					},
