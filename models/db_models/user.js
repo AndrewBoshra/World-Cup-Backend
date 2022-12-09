@@ -3,33 +3,42 @@ const Schema = mongoose.Schema;
 const data = require('../../data/index');
 const validator=require('validator');
 
+const rolesSchema = new Schema({
+    role: {
+        type: String,
+        required: true,
+        enum:['Admin','Manager','Fan']
+    }
+}); 
+
 const userSchema = new Schema({
     username: {
         type: String,
-        required: [true, 'Please provide your username'],
+        required: '{PATH} is required!',
         unique: true,
-        minLength: [3, 'username can\'t be less than 3 chars'],
+        minLength: [3, '{PATH} can\'t be less than 3 chars'],
         trim: true
     },
     password: {
         type: String,
         select: false,
-        required: [true, 'password is required']
+        required: '{PATH} is required!'
     },
     firstName: {
         type: String,
-        required: [true, 'firstNmae is required'],
+        required: '{PATH} is required!',
     },
     lastName: {
         type: String,
-        required: [true, 'firstNmae is required'],
+        required: '{PATH} is required!',
     },
     birthDate: {
         type: Date,
-        required: [true, 'birthDate is required'],
+        required: '{PATH} is required!',
     },
     gender: {
-        required: true,
+        type:[String],
+        required: '{PATH} is required!',
         enum: ['male', 'female']
     },
     nationality:
@@ -39,13 +48,14 @@ const userSchema = new Schema({
     },
     email:{
         type:[String],
-        validate: [ validator.isEmail, 'invalid email' ],
-        required:[true,'email is required']
-    }
+        validate: [ validator.isEmail, 'invalid {PATH}' ],
+        required:'{PATH} is required'
+    },
+    roles: [rolesSchema]
 
 });
 
 
 const User = mongoose.model('User', userSchema);
 
-export default User;
+module.exports = User;
