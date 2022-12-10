@@ -5,13 +5,13 @@ const validator=require('validator');
 const config=require('../../config/index')
 const jwt=require('jsonwebtoken')
 
-const rolesSchema = new Schema({
+const rolesSchema = {
     role: {
         type: String,
         required: true,
         enum:['Admin','Manager','Fan']
     }
-}); 
+}; 
 
 const userSchema = new Schema({
     username: {

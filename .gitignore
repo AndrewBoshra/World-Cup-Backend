@@ -1,3 +1,5 @@
+upload/*
+!upload/default.jpg
 # Logs
 logs
 *.log

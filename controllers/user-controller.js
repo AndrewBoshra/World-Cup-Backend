@@ -87,6 +87,7 @@ async function deleteUser(req, res) {
     if (!user) {
         throw new AppError("user not found", 404);
     }
+    const del = createUserViewModel(user);
     new AppResponse(res, del, 200).send();
 }
 

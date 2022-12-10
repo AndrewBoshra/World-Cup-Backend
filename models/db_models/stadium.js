@@ -1,15 +1,30 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-
 const stadiumSchema = new Schema({
-    name:{
-        required: '{PATH} is required!'
-    }
-    //TODO : Add image , description 
+    name: {
+        type: String,
+        required: "{PATH} is required!",
+    },
+    description: {
+        type: String,
+    },
+    image: {
+        type: String,
+        required: "{PATH} is required!",
+    },
+    VIPlounge: {
+        width: {
+            type: Number,
+            required: "{PATH} is required!",
+        },
+        height: {
+            type: Number,
+            required: "{PATH} is required!",
+        },
+    },
 });
 
-
-const Stadium = mongoose.model('Stadium', stadiumSchema);
+const Stadium = mongoose.model("Stadium", stadiumSchema);
 
 module.exports = Stadium;
