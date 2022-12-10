@@ -61,7 +61,7 @@ async function updateRole(req, res) {
 async function selfUpdate(req, res) {
     const { user } = req;
 
-    const { firstName, lastName, nationality } = utils.readKeys(
+    const { firstName, lastName, nationality ,gender,birthDate} = utils.readKeys(
         ["firstName", "lastName", "nationality", "gender", "birthDate"],
         req.body
     );
@@ -69,6 +69,8 @@ async function selfUpdate(req, res) {
     user.firstName = firstName || user.firstName;
     user.lastName = lastName || user.lastName;
     user.nationality = nationality || user.nationality;
+    user.gender = gender || user.gender;
+    user.birthDate = birthDate || user.birthDate;
 
     await user.save();
 
