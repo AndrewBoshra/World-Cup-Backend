@@ -62,7 +62,7 @@ async function selfUpdate(req, res) {
     const { user } = req;
 
     const { firstName, lastName, nationality } = utils.readKeys(
-        ["firstName", "lastName", "nationality"],
+        ["firstName", "lastName", "nationality", "gender", "birthDate"],
         req.body
     );
 
