@@ -2,28 +2,32 @@ const Match = require("../models/db_models/match");
 const AppError = require("../models/app-error");
 const AppResponse = require("../models/app-response");
 const utils = require("../utils/index");
-const { createReservationViewModel } = require("../models/view-models/reservation");
+const {
+    createReservationViewModel,
+} = require("../models/view-models/reservation");
+const { createReservationStatus } = require("../models/view-models/match");
 
-async function get(req, res) {
-    const { matchId, id } = req.params;
+async function status(req, res) {
+    const { matchId } = req.params;
     const match = await Match.findById(matchId);
 
     if (!match) {
         throw new AppError("Match not found", 404);
     }
 
-    const data = createMatchViewModel(match);
+    const data = createReservationStatus(match);
     new AppResponse(res, data, 200).send();
 }
 
 async function getAll(req, res) {
-    const { matchId, id } = req.params;
+    const { matchId } = req.params;
 
     const match = await Match.findById(matchId);
+
     if (!match) {
         throw new AppError("Match not found", 404);
     }
-    
+
     const reservationsVMs = match.reservations.map((r) =>
         createReservationViewModel(r)
     );
@@ -32,60 +36,39 @@ async function getAll(req, res) {
 }
 
 async function create(req, res) {
-    const body = req.body;
+    const { matchId } = req.params;
+    const { x, y } = req.body;
+    const { user } = req;
 
-    const match = new Match(body);
+    const match = await Match.findById(matchId);
+
+    if (!match) {
+        throw new AppError("Match not found", 404);
+    }
+
+    match.reserve(user.id, x, y);
+    await match.save();
+    const reservation = match.getUserReservation(user.id);
+
+    new AppResponse(res, createReservationViewModel(reservation), 200).send();
+}
+
+async function cancelReservation(req, res) {
+    const { matchId } = req.params;
+    const { user } = req;
+    const match = await Match.findById(matchId);
+    if (!match) {
+        throw new AppError("match not found", 404);
+    }
+    match.cancelReservation(user.id);
     await match.save();
 
-    const data = createMatchViewModel(match);
-    new AppResponse(res, data, 200).send();
-}
-
-async function update(req, res) {
-    const { body } = req;
-    const { id } = req.params;
-
-    let flattenedBody = utils.flattenObject(body);
-    const match = await Match.findById(id);
-    if (!match) {
-        throw new AppError("match not found", 404);
-    }
-    const updatedMatch = Object.assign(match, flattenedBody);
-    // TODO CHECK RESERVATION WHEN STADIUM IS UPDATED
-    await updatedMatch.save();
-    const data = createMatchViewModel(updatedMatch);
-    new AppResponse(res, data, 201).send();
-    // let flattenedBody = utils.flattenObject(body);
-    // const match = await Match.findByIdAndUpdate(id, flattenedBody, {
-    //     new: true,
-    //     runValidators: true,
-    //     context:'query'
-    // });
-
-    // if (!match) {
-    //     throw new AppError("match not found", 404);
-    // }
-
-    // const data = createMatchViewModel(match);
-    // new AppResponse(res, data, 201).send();
-}
-
-async function deleteMatch(req, res) {
-    const { id } = req.params;
-    const match = await Match.findByIdAndDelete(id);
-
-    if (!match) {
-        throw new AppError("match not found", 404);
-    }
-
-    const data = createMatchViewModel(match);
-    new AppResponse(res, data, 200).send();
+    new AppResponse(res, null, 200).send();
 }
 
 module.exports = {
-    get,
+    status,
     getAll,
     create,
-    update,
-    deleteMatch,
+    cancelReservation,
 };

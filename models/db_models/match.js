@@ -6,6 +6,7 @@ const Schema = mongoose.Schema;
 
 const Team = require("./team");
 const Stadium = require("./stadium");
+const { dateDiffInDays } = require("../../utils");
 
 const reservation = {
     user: {
@@ -33,7 +34,7 @@ const reservation = {
 
 async function validateSeatX(x) {
     if (x < 1) throw new AppError("x cannot be less than 1");
-    const { stadium } = this.parent;
+    const { stadium } = this.parent();
     const { width } = stadium.VIPlounge;
     if (x > width)
         throw new AppError(
@@ -43,7 +44,7 @@ async function validateSeatX(x) {
 }
 async function validateSeatY(y) {
     if (y < 1) throw new AppError("y cannot be less than 1");
-    const { stadium } = this.parent;
+    const { stadium } = this.parent();
     const { height } = stadium.VIPlounge;
     if (y > height)
         throw new AppError(
@@ -106,8 +107,8 @@ const matchSchema = new Schema({
 
 async function getMatchesForTeam(team_id, date) {
     const day = new Date(date);
-    day.setHours(0,0,0,0);
-    
+    day.setHours(0, 0, 0, 0);
+
     const next_day = new Date(day);
     next_day.setDate(day.getDate() + 1);
 
@@ -127,8 +128,11 @@ async function getMatchesForTeam(team_id, date) {
 }
 
 async function checkIfTeamAlreadyHasMatch(id) {
-    teamMatches = await getMatchesForTeam(id, this.date);    
-    return teamMatches.length === 0;
+    teamMatches = await getMatchesForTeam(id, this.date);
+    return (
+        teamMatches.length === 0 ||
+        (teamMatches.length === 1 && teamMatches[0]._id.equals(this.id))
+    );
 }
 
 matchSchema.pre("validate", function (next) {
@@ -167,4 +171,51 @@ matchSchema.plugin(require("mongoose-autopopulate"));
 
 const Match = mongoose.model("Match", matchSchema);
 
+Match.prototype.getReservation = function (x, y) {
+    const { reservations } = this;
+    return reservations.find((r) => r.seat.x == x && r.seat.y == y);
+};
+
+Match.prototype.isSeatReserved = function (x, y) {
+    return this.getReservation(x,y)!== undefined;
+};
+
+Match.prototype.getUserReservation = function (user) {
+    const { reservations } = this;
+    return reservations.find((s) => s.user._id.equals(user));
+};
+
+
+Match.prototype.reserve = function (user, x, y) {
+    if (this.getUserReservation(user)) {
+        throw new AppError(`This User already has a reservation`, 400);
+    }
+
+    if (this.isSeatReserved(x, y)) {
+        throw new AppError(`Seat (${x},${y}) is already reserved`, 400);
+    }
+    if (this.date < new Date()) {
+        throw new AppError(`This match already played`, 400);
+    }
+
+    this.reservations.push({
+        seat: { x, y },
+        user,
+    });
+};
+
+Match.prototype.cancelReservation = function (user) {
+    
+    const reservation=this.getUserReservation(user);
+    
+    if (reservation == undefined) {
+        throw new AppError(`You don't have a reservation`, 400);
+    }
+    if (dateDiffInDays(new Date(),this.date) <= 3) {
+        throw new AppError(`You can't cancel this reservation now`, 400);
+    }
+    
+    this.reservations = this.reservations.filter(r=> r !== reservation);
+
+};
 module.exports = Match;

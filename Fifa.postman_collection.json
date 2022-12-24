@@ -453,7 +453,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"team1\":\"639448912f8386f462bcb713\",\n    \"team2\":\"639448912f8386f462bcb713\",\n    \"stadium\":\"639448912f8386f462bcb713\",\n    \"linesMan1\":\"lineman1\",\n    \"linesMan2\":\"lineman2\",\n    \"mainReferee\":\"mainReferee\",\n    \"date\":\"1999-06-02\"\n\n}",
+							"raw": "{\n    \"team1\":\"63a647c7d356da05918c24e5\",\n    \"team2\":\"63a647c8d356da05918c24e8\",\n    \"stadium\":\"6394488b2f8386f462bcb70c\",\n    \"linesMan1\":\"lineman1\",\n    \"linesMan2\":\"lineman2\",\n    \"mainReferee\":\"mainReferee\",\n    \"date\":\"2022-12-25\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -488,6 +488,60 @@
 							"raw": "{{url}}matches/:id",
 							"host": [
 								"{{url}}matches"
+							],
+							"path": [
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "639448912f8386f462bcb713"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/home/andrew/Pictures/Screenshot from 2022-12-09 11-29-46.png"
+								},
+								{
+									"key": "name",
+									"value": "name",
+									"type": "default"
+								},
+								{
+									"key": "description",
+									"value": "description",
+									"type": "default"
+								},
+								{
+									"key": "VIPlounge[width]",
+									"value": "2000",
+									"type": "default"
+								},
+								{
+									"key": "VIPlounge[height]",
+									"value": "30",
+									"type": "default",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}stadiums/:id",
+							"host": [
+								"{{url}}stadiums"
 							],
 							"path": [
 								":id"
@@ -549,6 +603,119 @@
 							],
 							"path": [
 								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "reservations",
+			"item": [
+				{
+					"name": "get all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}matches/",
+							"host": [
+								"{{url}}matches"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "reserve a seat",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"x\":1,\n    \"y\":1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}matches/:matchId/reservations",
+							"host": [
+								"{{url}}matches"
+							],
+							"path": [
+								":matchId",
+								"reservations"
+							],
+							"variable": [
+								{
+									"key": "matchId",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "cancel reservation",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}matches/:matchId/reservations",
+							"host": [
+								"{{url}}matches"
+							],
+							"path": [
+								":matchId",
+								"reservations"
+							],
+							"variable": [
+								{
+									"key": "matchId",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}matches/:matchId/reservations/status",
+							"host": [
+								"{{url}}matches"
+							],
+							"path": [
+								":matchId",
+								"reservations",
+								"status"
+							],
+							"variable": [
+								{
+									"key": "matchId",
+									"value": ""
+								}
 							]
 						}
 					},

@@ -3,10 +3,9 @@ const authMiddleware = require("../middlewares/auth");
 const router = require("express").Router({mergeParams:true});
 
 router
-    .get("/:id", controller.get)
+    .use(authMiddleware.isAuthenticated(["Manager","Fan"]))
+    .get("/status", controller.status)
     .get("/", controller.getAll)
-    .use(authMiddleware.isAuthenticated(["Manager"]))
     .post("/", controller.create)
-    .patch("/:id", controller.update)
-    .delete("/:id", controller.deleteMatch);
+    .delete("/", controller.cancelReservation);
 module.exports = router;
