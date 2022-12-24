@@ -41,17 +41,27 @@ async function update(req, res) {
     const { id } = req.params;
 
     let flattenedBody = utils.flattenObject(body);
-    const match = await Match.findByIdAndUpdate(id, flattenedBody, {
-        new: true,
-        runValidators: true,
-    });
-
+    const match = await Match.findById(id);
     if (!match) {
         throw new AppError("match not found", 404);
     }
-
-    const data = createMatchViewModel(match);
+    const updatedMatch = Object.assign(match, flattenedBody);
+    await updatedMatch.save()
+    const data = createMatchViewModel(updatedMatch);
     new AppResponse(res, data, 201).send();
+    // let flattenedBody = utils.flattenObject(body);
+    // const match = await Match.findByIdAndUpdate(id, flattenedBody, {
+    //     new: true,
+    //     runValidators: true,
+    //     context:'query'
+    // });
+
+    // if (!match) {
+    //     throw new AppError("match not found", 404);
+    // }
+
+    // const data = createMatchViewModel(match);
+    // new AppResponse(res, data, 201).send();
 }
 
 async function deleteMatch(req, res) {

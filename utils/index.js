@@ -45,7 +45,6 @@ function flattenObject(obj,subKey="",resObj={}) {
     }
     return resObj;
 }
-
 module.exports = {
     deepCopy,
     readKeys,

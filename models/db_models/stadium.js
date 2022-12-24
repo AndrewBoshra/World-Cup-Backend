@@ -17,10 +17,12 @@ const stadiumSchema = new Schema({
         width: {
             type: Number,
             required: "{PATH} is required!",
+            min:0,
         },
         height: {
             type: Number,
             required: "{PATH} is required!",
+            min:0,
         },
     },
 });

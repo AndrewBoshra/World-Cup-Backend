@@ -75,7 +75,7 @@ async function getMatchesForTeam(team_id, day) {
 async function checkIfTeamAlreadyHasMatch(id) {
     teamMatches = await getMatchesForTeam(id, this.date);
     console.log(teamMatches);
-    console.log("+++++++++++++++++++++=");
+    console.log("Validator");
     return teamMatches.length === 0;
 }
 
