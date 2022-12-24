@@ -48,6 +48,7 @@ async function update(req, res) {
     let flattenedBody = utils.flattenObject(body);
     const stadium = await Stadium.findByIdAndUpdate(id, flattenedBody, {
         new: true,
+        runValidators: true,
     });
 
     if (!stadium) {

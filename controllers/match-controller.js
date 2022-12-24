@@ -43,6 +43,7 @@ async function update(req, res) {
     let flattenedBody = utils.flattenObject(body);
     const match = await Match.findByIdAndUpdate(id, flattenedBody, {
         new: true,
+        runValidators: true,
     });
 
     if (!match) {
