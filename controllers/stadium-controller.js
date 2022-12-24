@@ -4,6 +4,7 @@ const AppResponse = require("../models/app-response");
 const utils = require("../utils/index");
 const { ofType, requiredField } = require("../utils/validators");
 const { createStadiumViewModel } = require("../models/view-models/stadium");
+const Match = require("../models/db_models/match");
 
 async function get(req, res) {
     const { id } = req.params;
@@ -34,7 +35,7 @@ async function create(req, res) {
     await stadium.save();
 
     const data = createStadiumViewModel(stadium);
-    new AppResponse(res, data, 200).send();
+    new AppResponse(res, data, 201).send();
 }
 
 async function update(req, res) {
@@ -67,6 +68,7 @@ async function deleteStadium(req, res) {
     
     const data = createStadiumViewModel(stadium);
     new AppResponse(res, data, 200).send();
+    await Match.deleteMany({stadium});
 }
 
 module.exports = {
