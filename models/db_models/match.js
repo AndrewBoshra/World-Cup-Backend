@@ -105,7 +105,7 @@ const matchSchema = new Schema({
 });
 
 async function getMatchesForTeam(team_id, day) {
-    const next_day = new Date();
+    const next_day = new Date(day);
     next_day.setDate(day.getDate() + 1);
 
     return Match.find({
@@ -124,9 +124,7 @@ async function getMatchesForTeam(team_id, day) {
 }
 
 async function checkIfTeamAlreadyHasMatch(id) {
-    teamMatches = await getMatchesForTeam(id, this.date);
-    console.log(teamMatches);
-    console.log("Validator");
+    teamMatches = await getMatchesForTeam(id, this.date);    
     return teamMatches.length === 0;
 }
 
