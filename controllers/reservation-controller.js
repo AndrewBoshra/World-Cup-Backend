@@ -2,11 +2,11 @@ const Match = require("../models/db_models/match");
 const AppError = require("../models/app-error");
 const AppResponse = require("../models/app-response");
 const utils = require("../utils/index");
-const { createMatchViewModel } = require("../models/view-models/match");
+const { createReservationViewModel } = require("../models/view-models/reservation");
 
 async function get(req, res) {
-    const { id } = req.params;
-    const match = await Match.findById(id);
+    const { matchId, id } = req.params;
+    const match = await Match.findById(matchId);
 
     if (!match) {
         throw new AppError("Match not found", 404);
@@ -17,20 +17,26 @@ async function get(req, res) {
 }
 
 async function getAll(req, res) {
-    const matches = await Match.find();
-    const matchesVMs = matches.map((m) => createMatchViewModel(m));
+    const { matchId, id } = req.params;
 
-    new AppResponse(res, matchesVMs, 200).send();
+    const match = await Match.findById(matchId);
+    if (!match) {
+        throw new AppError("Match not found", 404);
+    }
+    
+    const reservationsVMs = match.reservations.map((r) =>
+        createReservationViewModel(r)
+    );
+
+    new AppResponse(res, reservationsVMs, 200).send();
 }
-
-
 
 async function create(req, res) {
     const body = req.body;
 
     const match = new Match(body);
     await match.save();
-    
+
     const data = createMatchViewModel(match);
     new AppResponse(res, data, 200).send();
 }
@@ -45,8 +51,8 @@ async function update(req, res) {
         throw new AppError("match not found", 404);
     }
     const updatedMatch = Object.assign(match, flattenedBody);
-    // TODO CHECK RESERVATION WHEN STADIUM IS UPDATED  
-    await updatedMatch.save()
+    // TODO CHECK RESERVATION WHEN STADIUM IS UPDATED
+    await updatedMatch.save();
     const data = createMatchViewModel(updatedMatch);
     new AppResponse(res, data, 201).send();
     // let flattenedBody = utils.flattenObject(body);
