@@ -104,7 +104,10 @@ const matchSchema = new Schema({
     },
 });
 
-async function getMatchesForTeam(team_id, day) {
+async function getMatchesForTeam(team_id, date) {
+    const day = new Date(date);
+    day.setHours(0,0,0,0);
+    
     const next_day = new Date(day);
     next_day.setDate(day.getDate() + 1);
 
