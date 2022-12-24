@@ -5,7 +5,7 @@ function createTeamViewModel(data) {
     return {
         id,
         name,
-        flag: config.IMAGES_URL + "/" + flag,
+        flag:  flag,
     };
 }
 
