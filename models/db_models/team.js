@@ -3,10 +3,14 @@ const Schema = mongoose.Schema;
 
 
 const teamSchema = new Schema({
-    name:{
-        required: '{PATH} is required!'
-    }
-    //TODO : add flag image 
+    name: {
+        type: String,
+        required: "{PATH} is required!",
+    },
+    flag: {
+        type: String,
+        required: "{PATH} is required!",
+    },
 });
 
 

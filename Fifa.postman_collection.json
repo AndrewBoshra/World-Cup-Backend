@@ -398,6 +398,163 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "matches",
+			"item": [
+				{
+					"name": "get all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}matches/",
+							"host": [
+								"{{url}}matches"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{url}}matches/:id",
+							"host": [
+								"{{url}}matches"
+							],
+							"path": [
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "6394414fd481ade9ea7edee5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"team1\":\"639448912f8386f462bcb713\",\n    \"team2\":\"639448912f8386f462bcb713\",\n    \"stadium\":\"639448912f8386f462bcb713\",\n    \"linesMan1\":\"lineman1\",\n    \"linesMan2\":\"lineman2\",\n    \"mainReferee\":\"mainReferee\",\n    \"date\":\"1999-06-02\"\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}matches/",
+							"host": [
+								"{{url}}matches"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{url}}matches/:id",
+							"host": [
+								"{{url}}matches"
+							],
+							"path": [
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "639448912f8386f462bcb713"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Teams",
+			"item": [
+				{
+					"name": "get",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{url}}matches/:id",
+							"host": [
+								"{{url}}matches"
+							],
+							"path": [
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "639448912f8386f462bcb713"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}matches/",
+							"host": [
+								"{{url}}matches"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"auth": {
