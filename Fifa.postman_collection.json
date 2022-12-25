@@ -664,6 +664,39 @@
 					"response": []
 				},
 				{
+					"name": "confirm-reservation",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"x\":1,\n    \"y\":1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}matches/:matchId/reservations",
+							"host": [
+								"{{url}}matches"
+							],
+							"path": [
+								":matchId",
+								"reservations"
+							],
+							"variable": [
+								{
+									"key": "matchId",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "cancel reservation",
 					"request": {
 						"method": "DELETE",
@@ -722,6 +755,43 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "status Copy",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{url}}pay",
+					"host": [
+						"{{url}}pay"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "status Copy 2",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"amount\":50\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}pay",
+					"host": [
+						"{{url}}pay"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"auth": {
