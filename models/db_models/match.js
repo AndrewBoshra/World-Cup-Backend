@@ -192,9 +192,9 @@ Match.prototype.isSeatReserved = function (x, y) {
     return this.getReservation(x,y)!== undefined;
 };
 
-Match.prototype.getUserReservation = function (user) {
+Match.prototype.getUserReservations = function (user) {
     const { reservations } = this;
-    return reservations.find((s) => s.user._id.equals(user));
+    return reservations.filter((s) => s.user._id.equals(user));
 };
 
 Match.prototype.canReserve = function (x, y) {
@@ -220,7 +220,7 @@ Match.prototype.reserve = function (user, x, y) {
 
 Match.prototype.cancelReservation = function (user) {
     
-    const reservation=this.getUserReservation(user);
+    const reservation=this.getUserReservations(user);
     
     if (reservation == undefined) {
         throw new AppError(`You don't have a reservation`, 400);

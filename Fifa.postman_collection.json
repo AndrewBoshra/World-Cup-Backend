@@ -15,7 +15,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\":\"mmm@mmm.com\",\n    \"password\":\"12345678\"\n}",
+							"raw": "{\n    \"email\":\"andrew@boshra.com\",\n    \"password\":\"12345678\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -41,7 +41,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"password\":\"12345678\",\n    \"firstName\":\"omar\",\n    \"lastName\":\"mohammed\",\n    \"birthDate\":\"2000-9-7\",\n    \"username\":\"omar\",\n    \"gender\":\"male\",\n    \"email\":\"omar@mohammed.com\",\n    \"nationality\":\"Egyptian\"\n}",
+							"raw": "{\n    \"password\":\"12345678\",\n    \"firstName\":\"andrew\",\n    \"lastName\":\"boshra\",\n    \"birthDate\":\"2000-9-7\",\n    \"username\":\"andrew\",\n    \"gender\":\"male\",\n    \"email\":\"andrew@boshra.com\",\n    \"nationality\":\"Egyptian\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -261,7 +261,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "639448912f8386f462bcb713"
+									"value": "6394488b2f8386f462bcb70c"
 								}
 							]
 						}
@@ -306,7 +306,7 @@
 								{
 									"key": "image",
 									"type": "file",
-									"src": "/home/andrew/Pictures/Screenshot from 2022-11-15 22-05-59.png",
+									"src": "/home/andrew/Pictures/Screenshot from 2022-11-02 18-50-37.png",
 									"disabled": true
 								},
 								{
@@ -354,28 +354,30 @@
 								{
 									"key": "image",
 									"type": "file",
-									"src": "/home/andrew/Pictures/Screenshot from 2022-12-09 11-29-46.png"
+									"src": "/home/andrew/Pictures/Screenshot from 2022-12-09 11-29-46.png",
+									"disabled": true
 								},
 								{
 									"key": "name",
 									"value": "name",
-									"type": "default"
+									"type": "default",
+									"disabled": true
 								},
 								{
 									"key": "description",
 									"value": "description",
-									"type": "default"
+									"type": "default",
+									"disabled": true
 								},
 								{
 									"key": "VIPlounge[width]",
-									"value": "2000",
+									"value": "5",
 									"type": "default"
 								},
 								{
 									"key": "VIPlounge[height]",
-									"value": "30",
-									"type": "default",
-									"disabled": true
+									"value": "5",
+									"type": "default"
 								}
 							]
 						},
@@ -390,7 +392,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "639448912f8386f462bcb713"
+									"value": "6394488b2f8386f462bcb70c"
 								}
 							]
 						}
@@ -439,7 +441,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "6394414fd481ade9ea7edee5"
+									"value": "63a643e956d1b9e088f28f62"
 								}
 							]
 						}
@@ -453,7 +455,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"team1\":\"63a647c7d356da05918c24e5\",\n    \"team2\":\"63a647c8d356da05918c24e8\",\n    \"stadium\":\"6394488b2f8386f462bcb70c\",\n    \"linesMan1\":\"lineman1\",\n    \"linesMan2\":\"lineman2\",\n    \"mainReferee\":\"mainReferee\",\n    \"date\":\"2022-12-25\"\n}",
+							"raw": "{\n    \"team1\":\"63a647c7d356da05918c24e5\",\n    \"team2\":\"63a647c8d356da05918c24e8\",\n    \"stadium\":\"6394488b2f8386f462bcb70c\",\n    \"linesMan1\":\"lineman1\",\n    \"linesMan2\":\"lineman2\",\n    \"mainReferee\":\"mainReferee\",\n    \"date\":\"2026-2-9\",\n    \"seatPrice\":100,\n    \"name\":\"Final\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -495,7 +497,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "639448912f8386f462bcb713"
+									"value": "63a7499ea66673dcffbc9859"
 								}
 							]
 						}
@@ -508,40 +510,18 @@
 						"method": "PATCH",
 						"header": [],
 						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "image",
-									"type": "file",
-									"src": "/home/andrew/Pictures/Screenshot from 2022-12-09 11-29-46.png"
-								},
-								{
-									"key": "name",
-									"value": "name",
-									"type": "default"
-								},
-								{
-									"key": "description",
-									"value": "description",
-									"type": "default"
-								},
-								{
-									"key": "VIPlounge[width]",
-									"value": "2000",
-									"type": "default"
-								},
-								{
-									"key": "VIPlounge[height]",
-									"value": "30",
-									"type": "default",
-									"disabled": true
+							"mode": "raw",
+							"raw": "{\n    \"date\":\"2024-06-04T00:00:00.000Z\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
 								}
-							]
+							}
 						},
 						"url": {
-							"raw": "{{url}}stadiums/:id",
+							"raw": "{{url}}matches/:id",
 							"host": [
-								"{{url}}stadiums"
+								"{{url}}matches"
 							],
 							"path": [
 								":id"
@@ -549,7 +529,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "639448912f8386f462bcb713"
+									"value": "63a74dbc2662f09554fef711"
 								}
 							]
 						}
@@ -574,9 +554,9 @@
 							"formdata": []
 						},
 						"url": {
-							"raw": "{{url}}matches/:id",
+							"raw": "{{url}}teams/:id",
 							"host": [
-								"{{url}}matches"
+								"{{url}}teams"
 							],
 							"path": [
 								":id"
@@ -584,7 +564,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "639448912f8386f462bcb713"
+									"value": "63a7499ea66673dcffbc9859"
 								}
 							]
 						}
@@ -597,9 +577,9 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}matches/",
+							"raw": "{{url}}teams/",
 							"host": [
-								"{{url}}matches"
+								"{{url}}teams"
 							],
 							"path": [
 								""
@@ -619,12 +599,19 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}matches/",
+							"raw": "{{url}}matches/:matchId/reservations",
 							"host": [
 								"{{url}}matches"
 							],
 							"path": [
-								""
+								":matchId",
+								"reservations"
+							],
+							"variable": [
+								{
+									"key": "matchId",
+									"value": "63a7ac498da377e0460a4b7a"
+								}
 							]
 						}
 					},
@@ -636,12 +623,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}matches/",
+							"raw": "{{url}}users/reservations",
 							"host": [
-								"{{url}}matches"
+								"{{url}}users"
 							],
 							"path": [
-								""
+								"reservations"
 							]
 						}
 					},
@@ -654,7 +641,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"x\":1,\n    \"y\":1\n}",
+							"raw": "{\n    \"seats\": [\n        {\n            \"x\": 1,\n            \"y\": 9\n        }\n    ]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -673,7 +660,7 @@
 							"variable": [
 								{
 									"key": "matchId",
-									"value": ""
+									"value": "63a8bd01cab64e9cf5acfd37"
 								}
 							]
 						}
@@ -687,7 +674,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"x\":1,\n    \"y\":1\n}",
+							"raw": "{\n    \"orderId\":\"1GM67858D2416282X\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -695,18 +682,19 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}matches/:matchId/reservations",
+							"raw": "{{url}}matches/:matchId/reservations/capture-payment",
 							"host": [
 								"{{url}}matches"
 							],
 							"path": [
 								":matchId",
-								"reservations"
+								"reservations",
+								"capture-payment"
 							],
 							"variable": [
 								{
 									"key": "matchId",
-									"value": ""
+									"value": "63a7ac498da377e0460a4b7a"
 								}
 							]
 						}
@@ -728,18 +716,23 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}matches/:matchId/reservations",
+							"raw": "{{url}}matches/:matchId/reservations/:orderId",
 							"host": [
 								"{{url}}matches"
 							],
 							"path": [
 								":matchId",
-								"reservations"
+								"reservations",
+								":orderId"
 							],
 							"variable": [
 								{
 									"key": "matchId",
-									"value": ""
+									"value": "63a8496a90b70f5a17899dd1"
+								},
+								{
+									"key": "orderId",
+									"value": "4RL82990AG0904155"
 								}
 							]
 						}
@@ -764,7 +757,7 @@
 							"variable": [
 								{
 									"key": "matchId",
-									"value": ""
+									"value": "63a7ac498da377e0460a4b7a"
 								}
 							]
 						}
@@ -779,9 +772,12 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "{{url}}pay",
+					"raw": "{{url}}cappay/9AJ5350283989441R",
 					"host": [
-						"{{url}}pay"
+						"{{url}}cappay"
+					],
+					"path": [
+						"9AJ5350283989441R"
 					]
 				}
 			},
@@ -794,7 +790,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"amount\":50\n}",
+					"raw": "{\n    \"amount\":999\n}",
 					"options": {
 						"raw": {
 							"language": "json"
