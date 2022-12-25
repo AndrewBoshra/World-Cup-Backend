@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 
-const reservation = new Schema({
+const order = new Schema({
     user: {
         type: Schema.Types.ObjectId,
         ref: "User",
@@ -13,17 +13,21 @@ const reservation = new Schema({
         ref: "Match",
         required: "{PATH} is required!",
     },
-    seat: {
-        x: Number,
-        y: Number,
+    seats: [
+        {
+            x: Number,
+            y: Number,
+        },
+    ],
+    orderId: String,
+    captureId: String,
+    isConfirmed: {
+        type: Boolean,
+        default:false,
     },
-    orderId: String
-});
+},{timestamps:true});
 
 
-const UnconfirmedReservation = mongoose.model(
-    "UnconfirmedReservation",
-    reservation
-);
+const Order = mongoose.model("Order", order);
 
-module.exports = { UnconfirmedReservation };
+module.exports = {  Order };

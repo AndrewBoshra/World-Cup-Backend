@@ -6,10 +6,12 @@ const {
     createReservationViewModel,
 } = require("../models/view-models/reservation");
 const { createReservationStatus } = require("../models/view-models/match");
-const { createReservationOrder, isOrderCapture } = require("../utils/payment");
 const {
-    UnconfirmedReservation,
-} = require("../models/db_models/unconfrimed-reservation");
+    createReservationOrder,
+    captureOrder,
+    refundOrder,
+} = require("../services/payment");
+const { Order } = require("../models/db_models/order");
 
 async function createReservationPayment(req, res) {
     const { matchId } = req.params;
@@ -18,20 +20,20 @@ async function createReservationPayment(req, res) {
     if (!match) {
         throw new AppError("Match not found", 404);
     }
-    const { x, y } = req.body;
+    const { seats } = req.body;
 
-    match.canReserve(req.user._id, x, y);
+    for (const seat of seats) {
+        const { x, y } = seat;
+        match.canReserve(x, y);
+    }
 
-    const paypalOrderId = await createReservationOrder({
-        amount: match.seatPrice,
-        name: `Seat (${x},${y}) reservation in ${match.name} match`,
-    });
+    const paypalOrderId = await createReservationOrder(match, seats);
 
-    await new UnconfirmedReservation({
+    await new Order({
         match,
         user: req.user,
         orderId: paypalOrderId,
-        seat: { x, y }, //TODO validate x and y  ( add thi mehtod to stad and use it everywhere)
+        seats,
     }).save();
 
     new AppResponse(res, { paypalOrderId }, 201).send();
@@ -69,36 +71,75 @@ async function captureReservation(req, res) {
     // const { matchId } = req.params;
     const { orderId } = req.body;
 
-    const unconfirmedReservation = await UnconfirmedReservation.findOne({orderId})
-    
-    if(! unconfirmedReservation ){
-        throw new AppError("Invalid orderId",400);
-    }
-    const captured = await isOrderCapture(orderId);
-    
-    if(!captured){
-        throw new AppError("Payment Error",400);
-    }
-    const match = await Match.findById(unconfirmedReservation.match);
-    match.reserve(unconfirmedReservation.user, unconfirmedReservation.seat.x, unconfirmedReservation.seat.y);
-    await match.save();
-    
-    const reservation = match.getUserReservation(unconfirmedReservation.user);
+    const order = await Order.findOne({ orderId, isConfirmed: false });
 
-    new AppResponse(res, createReservationViewModel(reservation), 200).send();
+    if (!order) {
+        throw new AppError("orderId doesn't exist or already captured", 400);
+    }
+
+    const { captured, captureId } = await captureOrder(orderId);
+
+    if (!captured) {
+        throw new AppError("Payment Error", 400);
+    }
+
+    const match = await Match.findById(order.match);
+    // if (!req.user._id.equals(order.id)) {
+    //     throw new AppError("Not your Order", 400);
+    // }
+    const { user, seats } = order;
+    const reservations = [];
+    for (let seat of seats) {
+        const reservation = match.reserve(user, seat.x, seat.y);
+        reservation.orderId = orderId;
+        reservation.captureId = captureId;
+        reservations.push(reservation);
+    }
+    order.isConfirmed = true;
+    order.captureId = captureId;
+
+    await order.save();
+    await match.save();
+
+    new AppResponse(
+        res,
+        reservations.map(createReservationViewModel),
+        200
+    ).send();
 }
 
 async function cancelReservation(req, res) {
-    const { matchId } = req.params;
+    const { matchId, orderId } = req.params;
     const { user } = req;
-    const match = await Match.findById(matchId);
-    if (!match) {
-        throw new AppError("match not found", 404);
-    }
-    match.cancelReservation(user.id);
-    await match.save();
 
+    const order = await Order.findOne({
+        orderId,
+        isConfirmed: true,
+        user: user,
+    });
+
+    if (!order) {
+        throw new AppError("order not found", 404);
+    }
+
+    const match = await Match.findById(order.match);
+
+    for (const seat of order.seats) {
+        match.cancelReservationWithSeat(seat.x, seat.y);
+    }
+
+    await match.save();
+    await order.delete();
+    await refundOrder(order.captureId);
     new AppResponse(res, null, 200).send();
+}
+
+async function getUserReservations(req,res){
+    const {user} = req;
+    const orders = await Order.find({ user }).sort("-updatedAt").populate("match");
+
+    new AppResponse(res, orders,200).send();
+
 }
 
 module.exports = {
@@ -107,4 +148,5 @@ module.exports = {
     captureReservation,
     cancelReservation,
     createReservationPayment,
+    getUserReservations,
 };

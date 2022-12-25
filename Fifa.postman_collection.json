@@ -631,6 +631,23 @@
 					"response": []
 				},
 				{
+					"name": "get all Copy",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}matches/",
+							"host": [
+								"{{url}}matches"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "reserve a seat",
 					"request": {
 						"method": "POST",

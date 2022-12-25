@@ -30,6 +30,8 @@ const reservation = {
         immutable: true,
         default: uuid.v4,
     },
+    orderId: String,
+
 };
 
 async function validateSeatX(x) {
@@ -195,10 +197,9 @@ Match.prototype.getUserReservation = function (user) {
     return reservations.find((s) => s.user._id.equals(user));
 };
 
-Match.prototype.canReserve = function (user, x, y) {
-    if (this.getUserReservation(user)) {
-        throw new AppError(`This User already has a reservation`, 400);
-    }
+Match.prototype.canReserve = function (x, y) {
+
+    this.stadium.validateSeat({x,y});
 
     if (this.isSeatReserved(x, y)) {
         throw new AppError(`Seat (${x},${y}) is already reserved`, 400);
@@ -209,11 +210,12 @@ Match.prototype.canReserve = function (user, x, y) {
 };
 
 Match.prototype.reserve = function (user, x, y) {
-    this.canReserve(user, x, y);
+    this.canReserve( x, y);
     this.reservations.push({
         seat: { x, y },
         user,
     });
+    return this.reservations[this.reservations.length - 1];
 };
 
 Match.prototype.cancelReservation = function (user) {
@@ -222,6 +224,21 @@ Match.prototype.cancelReservation = function (user) {
     
     if (reservation == undefined) {
         throw new AppError(`You don't have a reservation`, 400);
+    }
+    if (dateDiffInDays(new Date(),this.date) <= 3) {
+        throw new AppError(`You can't cancel this reservation now`, 400);
+    }
+    
+    this.reservations = this.reservations.filter(r=> r !== reservation);
+
+};
+
+Match.prototype.cancelReservationWithSeat = function (x,y) {
+    
+    const reservation=this.getReservation(x,y);
+    
+    if (reservation == undefined) {
+        throw new AppError(`(${x},${y}) is not reserved`, 400);
     }
     if (dateDiffInDays(new Date(),this.date) <= 3) {
         throw new AppError(`You can't cancel this reservation now`, 400);

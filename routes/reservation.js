@@ -8,5 +8,5 @@ router
     .get("/", controller.getAll)
     .post("/", controller.createReservationPayment)
     .post("/capture-payment", controller.captureReservation)
-    .delete("/", controller.cancelReservation);
+    .delete("/:orderId", controller.cancelReservation);
 module.exports = router;
