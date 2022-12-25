@@ -99,6 +99,16 @@ const matchSchema = new Schema({
         minLength: [3, "{PATH} can't be less than 3 chars"],
         trim: true,
     },
+    seatPrice: {
+        type: Number,
+        required: "{PATH} is required!",
+        min: 1,
+    },
+    name:{
+        type:String,
+        trim: true,
+        required: "{PATH} is required!",
+    },
     reservations: {
         type: [reservation],
         default: [],
@@ -185,8 +195,7 @@ Match.prototype.getUserReservation = function (user) {
     return reservations.find((s) => s.user._id.equals(user));
 };
 
-
-Match.prototype.reserve = function (user, x, y) {
+Match.prototype.canReserve = function (user, x, y) {
     if (this.getUserReservation(user)) {
         throw new AppError(`This User already has a reservation`, 400);
     }
@@ -197,7 +206,10 @@ Match.prototype.reserve = function (user, x, y) {
     if (this.date < new Date()) {
         throw new AppError(`This match already played`, 400);
     }
+};
 
+Match.prototype.reserve = function (user, x, y) {
+    this.canReserve(user, x, y);
     this.reservations.push({
         seat: { x, y },
         user,

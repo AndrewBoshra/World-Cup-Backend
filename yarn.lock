@@ -740,6 +740,18 @@
     "semver" "^7.3.5"
     "tar" "^6.1.11"
 
+"@paypal/checkout-server-sdk@^1.0.3":
+  "integrity" "sha512-UEdq8akEdMz0Vs4qoQFU2gMp8PpyE/HKyMwiZuK4vIWUKl8jfd1fWKjQN5cDFm9NkFUIp5U7h++rdMOVj9WMNA=="
+  "resolved" "https://registry.npmjs.org/@paypal/checkout-server-sdk/-/checkout-server-sdk-1.0.3.tgz"
+  "version" "1.0.3"
+  dependencies:
+    "@paypal/paypalhttp" "^1.0.1"
+
+"@paypal/paypalhttp@^1.0.1":
+  "integrity" "sha512-DC7AHxTT7drF6dUi3YaFdPVuT15sIkpD5H2eHmdtFgxM4UanS1o1ZDfMhR9mpxd8o+X6pz2r+EZVRRq+n1cssQ=="
+  "resolved" "https://registry.npmjs.org/@paypal/paypalhttp/-/paypalhttp-1.0.1.tgz"
+  "version" "1.0.1"
+
 "@types/node@*":
   "integrity" "sha512-FgD3NtTAKvyMmD44T07zz2fEf+OKwutgBCEVM8GcvMGVGaDktiLNTDvPwC/LUe3PinMW+X6CuLOF2Ui1mAlSXg=="
   "resolved" "https://registry.npmjs.org/@types/node/-/node-18.11.12.tgz"

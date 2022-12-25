@@ -8,7 +8,9 @@ const {
     MONGO_URL,
     JWT_PASSWORD,
     ROOT_URL,
-    IMAGE_UPLOADS
+    IMAGE_UPLOADS,
+    PAYPAL_CLIENT_ID,
+    PAYPAL_CLIENT_SECRET,
 } = process.env;
     
 module.exports = {
@@ -21,6 +23,8 @@ module.exports = {
     IS_DEV: ENV === "Development",
     JWT_PASSWORD,
     ROOT_URL,
-    IMAGES_URL:ROOT_URL + IMAGE_UPLOADS,
-    IMAGE_UPLOADS
+    IMAGES_URL: ROOT_URL + IMAGE_UPLOADS,
+    IMAGE_UPLOADS,
+    PAYPAL_CLIENT_ID,
+    PAYPAL_CLIENT_SECRET,
 };
