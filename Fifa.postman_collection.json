@@ -618,7 +618,7 @@
 					"response": []
 				},
 				{
-					"name": "get all Copy",
+					"name": "user resevations",
 					"request": {
 						"method": "GET",
 						"header": [],

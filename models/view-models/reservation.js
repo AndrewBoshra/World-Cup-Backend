@@ -1,6 +1,9 @@
 const { createUserSimpleViewModel } = require("./user");
 
 function createReservationViewModel(data) {
+    if(!data){
+        console.log("HHHHHHHHHHHERER")
+    }
     const user = createUserSimpleViewModel(data.user);
     const seat = {
         x: data.seat.x,

@@ -1,15 +1,25 @@
 const { createMatchViewModel } = require("./match");
+const { createReservationViewModel } = require("./reservation");
 
-function createOrderViewModel(data) {
-    const match = createMatchViewModel(data.match);
+function createOrderViewModel(order) {
+  
+    const { match, ticketNumber, orderId } = order;
     
-    const { id, ticketNumber } = data;
+    const matchVM = createMatchViewModel(order.match);
+    
+    const reservations = [];
+    
+    for(let seat of order.seats){
+        const reservationVM = createReservationViewModel(match.getReservation(seat.x,seat.y))
+        reservations.push(reservationVM);
+    }
+    
     return {
-        id,
-        user,
-        seat,
+        match:matchVM,
         ticketNumber,
+        orderId,
+        reservations,
     };
 }
 
-module.exports = { createReservationViewModel };
+module.exports = { createOrderViewModel };

@@ -12,6 +12,7 @@ const {
     refundOrder,
 } = require("../services/payment");
 const { Order } = require("../models/db_models/order");
+const { createOrderViewModel } = require("../models/view-models/order");
 
 async function createReservationPayment(req, res) {
     const { matchId } = req.params;
@@ -135,10 +136,10 @@ async function cancelReservation(req, res) {
 }
 
 async function getUserReservations(req,res){
-    const {user} = req;
+    const { user } = req;
     const orders = await Order.find({ user }).sort("-updatedAt").populate("match");
 
-    new AppResponse(res, orders,200).send();
+    new AppResponse(res, orders.map(createOrderViewModel), 200).send();
 
 }
 
