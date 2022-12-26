@@ -4,8 +4,8 @@ const router = require("express").Router({ mergeParams: true });
 
 router
     .get("/status", controller.status)
-    .use(authMiddleware.isAuthenticated(["Manager", "Fan"]))
     .get("/", controller.getAll)
+    .use(authMiddleware.isAuthenticated(["Manager", "Fan"]))
     .post("/", controller.createReservationPayment)
     .post("/capture-payment", controller.captureReservation)
     .delete("/:orderId", controller.cancelReservation);
