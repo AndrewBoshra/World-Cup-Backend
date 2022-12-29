@@ -1,5 +1,6 @@
 upload/*
 !upload/default.jpg
+!upload/stadium_*
 # Logs
 logs
 *.log

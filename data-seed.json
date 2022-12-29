@@ -2,5 +2,79 @@
     "Team":{
         "imgs":[ "https://s.yimg.com/aah/yhst-132422827537450/argentina-45.gif", "https://s.yimg.com/aah/yhst-132422827537450/australia-flag-store-36.gif", "https://s.yimg.com/aah/yhst-132422827537450/belgium-48.gif", "https://s.yimg.com/aah/yhst-132422827537450/brazil-47.gif", "https://s.yimg.com/aah/yhst-132422827537450/cameroon-53.gif", "https://s.yimg.com/aah/yhst-132422827537450/canada-27.gif", "https://s.yimg.com/aah/yhst-132422827537450/costa-rica-30.gif", "https://s.yimg.com/aah/yhst-132422827537450/croatia-27.gif", "https://s.yimg.com/aah/yhst-132422827537450/denmark-32.gif", "https://s.yimg.com/aah/yhst-132422827537450/ecuador-36.gif", "https://s.yimg.com/aah/yhst-132422827537450/england-33.gif", "https://s.yimg.com/aah/yhst-132422827537450/france-31.gif", "https://s.yimg.com/aah/yhst-132422827537450/germany-28.gif", "https://s.yimg.com/aah/yhst-132422827537450/ghana-35.gif", "https://s.yimg.com/aah/yhst-132422827537450/iran-27.gif", "https://s.yimg.com/aah/yhst-132422827537450/japan-31.gif", "https://s.yimg.com/aah/yhst-132422827537450/mexico-21.gif", "https://s.yimg.com/aah/yhst-132422827537450/morocco-21.gif", "https://s.yimg.com/aah/yhst-132422827537450/netherlands-22.gif", "https://s.yimg.com/aah/yhst-132422827537450/poland-21.gif", "https://s.yimg.com/aah/yhst-132422827537450/portugal-21.gif", "https://s.yimg.com/aah/yhst-132422827537450/qatar-28.gif", "https://s.yimg.com/aah/yhst-132422827537450/saudi-arabia-26.gif", "https://s.yimg.com/aah/yhst-132422827537450/senegal-11.gif", "https://s.yimg.com/aah/yhst-132422827537450/serbia-22.gif", "https://s.yimg.com/aah/yhst-132422827537450/south-korea-22.gif", "https://s.yimg.com/aah/yhst-132422827537450/spain-22.gif", "https://s.yimg.com/aah/yhst-132422827537450/switzerland-22.gif", "https://s.yimg.com/aah/yhst-132422827537450/tunisia-5.gif", "https://s.yimg.com/aah/yhst-132422827537450/united-states-23.gif", "https://s.yimg.com/aah/yhst-132422827537450/uruguay-21.gif", "https://s.yimg.com/aah/yhst-132422827537450/wales-25.gif"],
         "names":["Argentina", "Australia", "Belgium", "Brazil", "Cameroon", "Canada", "Costa Rica", "Croatia", "Denmark", "Ecuador", "England", "France", "Germany", "Ghana", "Iran", "Japan", "Mexico", "Morocco", "Netherlands", "Poland", "Portugal", "Qatar", "Saudi Arabia", "Senegal", "Serbia", "South Korea", "Spain", "Switzerland", "Tunisia", "United States", "Uruguay", "Wales"]
-    }
+    },
+    "Stadiums": [
+        {
+            "name": "Ahmad Bin Ali Stadium",
+            "description": "Where desert stories unfold",
+            "image": "stadium_abi.jpeg",
+            "VIPlounge": {
+                "width": 10,
+                "height": 15
+            }
+        },
+        {
+            "name": "Al Janoub Stadium",
+            "description": "Football sails into a new era",
+            "image": "stadium_ajs.jpeg",
+            "VIPlounge": {
+                "width": 30,
+                "height": 45
+            }
+        },
+        {
+            "name": "Khalifa International Stadium",
+            "description": "A sporting legend re-energised",
+            "image": "stadium_kjs.jpeg",
+            "VIPlounge": {
+                "width": 20,
+                "height": 20
+            }
+        },
+        {
+            "name": "Lusail Stadium",
+            "description": "Alive with heritage, an icon for the future",
+            "image": "stadium_ls.jpeg",
+            "VIPlounge": {
+                "width": 15,
+                "height": 25
+            }
+        },
+        {
+            "name": "Al Bayt Stadium",
+            "description": "The warmest of Arab welcomes",
+            "image": "stadium_abs.jpeg",
+            "VIPlounge": {
+                "width": 10,
+                "height": 10
+            }
+        },
+        {
+            "name": "Stadium 974",
+            "description": "Innovation at the heart of it all",
+            "image": "stadium_974.jpeg",
+            "VIPlounge": {
+                "width": 1,
+                "height": 2
+            }
+        },
+        {
+            "name": "Al Thumama Stadium",
+            "description": "A venue steeped in culture and tradition",
+            "image": "stadium_ats.jpeg",
+            "VIPlounge": {
+                "width": 20,
+                "height": 30
+            }
+        },
+        {
+            "name": "Education City Stadium",
+            "description": "A shimmering jewel of inspiration",
+            "image": "stadium_ecs.jpeg",
+            "VIPlounge": {
+                "width": 35,
+                "height": 40
+            }
+        }
+    ]
 }

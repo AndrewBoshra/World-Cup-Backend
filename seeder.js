@@ -1,5 +1,7 @@
 const Team = require("./models/db_models/team");
+const Stadium = require("./models/db_models/stadium");
 const teamsRaw = require("./data-seed.json").Team;
+const stadiumsRaw = require("./data-seed.json").Stadiums;
 
 
 async function seedTeams() {
@@ -12,5 +14,17 @@ async function seedTeams() {
     }
 }
 
+async function seedStadiums() {
+    const stadiums=await Stadium.find();
+    if (stadiums.length) return;
+    
+    for(let s of stadiumsRaw){
+        await new Stadium(s).save();
+    }
+}
 
-module.exports= {seedTeams}
+async function seed(){
+    await seedTeams();
+    await seedStadiums();
+}
+module.exports= {seed}
