@@ -1,4 +1,6 @@
 const User = require("../models/db_models/user");
+const {Order} = require("../models/db_models/order");
+const Match = require("../models/db_models/match");
 const AppError = require("../models/app-error");
 const AppResponse = require("../models/app-response");
 const utils = require("../utils/index");
@@ -89,6 +91,24 @@ async function deleteUser(req, res) {
     if (!user) {
         throw new AppError("user not found", 404);
     }
+    
+    await Order.deleteMany({
+      user: user.id  
+    });
+    
+    await Match.updateMany(
+        {
+            "reservations.user": user.id,
+        },
+        {
+            $pull: {
+                reservations: {
+                    user: user.id
+                }
+            }
+        }
+    );
+
     const del = createUserViewModel(user);
     new AppResponse(res, del, 200).send();
 }
