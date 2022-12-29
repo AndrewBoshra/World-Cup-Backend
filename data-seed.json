@@ -54,8 +54,8 @@
             "description": "Innovation at the heart of it all",
             "image": "stadium_974.jpeg",
             "VIPlounge": {
-                "width": 1,
-                "height": 2
+                "width": 10,
+                "height": 20
             }
         },
         {
