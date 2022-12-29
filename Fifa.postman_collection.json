@@ -455,7 +455,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"team1\":\"63a647c7d356da05918c24e5\",\n    \"team2\":\"63a647c8d356da05918c24e8\",\n    \"stadium\":\"6394488b2f8386f462bcb70c\",\n    \"linesMan1\":\"lineman1\",\n    \"linesMan2\":\"lineman2\",\n    \"mainReferee\":\"mainReferee\",\n    \"date\":\"2026-2-9\",\n    \"seatPrice\":100,\n    \"name\":\"Final\"\n}",
+							"raw": "{\n    \"team1\":\"63a647c7d356da05918c24e5\",\n    \"team2\":\"63a647c8d356da05918c24e8\",\n    \"stadium\":\"6394488b2f8386f462bcb70c\",\n    \"linesMan1\":\"lineman1\",\n    \"linesMan2\":\"lineman2\",\n    \"mainReferee\":\"mainReferee\",\n    \"date\":\"2023-12-29T05:00:00.000Z\",\n    \"seatPrice\":100,\n    \"name\":\"Final\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -463,12 +463,22 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}matches/",
+							"raw": "{{url}}matches/?1=63ad04eb4701baaae0d7d1be&2=s",
 							"host": [
 								"{{url}}matches"
 							],
 							"path": [
 								""
+							],
+							"query": [
+								{
+									"key": "1",
+									"value": "63ad04eb4701baaae0d7d1be"
+								},
+								{
+									"key": "2",
+									"value": "s"
+								}
 							]
 						}
 					},
@@ -641,7 +651,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"seats\": [\n        {\n            \"x\": 1,\n            \"y\": 9\n        }\n    ]\n}",
+							"raw": "{\n    \"seats\": [\n        {\n            \"x\": 2,\n            \"y\": 9\n        },\n        {\n            \"x\": 10,\n            \"y\": 10\n        }\n    ]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -660,7 +670,7 @@
 							"variable": [
 								{
 									"key": "matchId",
-									"value": "63a8bd01cab64e9cf5acfd37"
+									"value": "63ad0aedd1bb30970783c053"
 								}
 							]
 						}
@@ -674,7 +684,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"orderId\":\"1GM67858D2416282X\"\n}",
+							"raw": "{\n    \"orderId\":\"1111\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -694,7 +704,7 @@
 							"variable": [
 								{
 									"key": "matchId",
-									"value": "63a7ac498da377e0460a4b7a"
+									"value": "63ad04eb4701baaae0d7d1be"
 								}
 							]
 						}
@@ -732,7 +742,7 @@
 								},
 								{
 									"key": "orderId",
-									"value": "4RL82990AG0904155"
+									"value": "51C01544GU829674S"
 								}
 							]
 						}
@@ -801,6 +811,32 @@
 					"raw": "{{url}}pay",
 					"host": [
 						"{{url}}pay"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "reset password",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"password\":\"12345678910\",\n    \"passwordConfirm\":\"12345678910\",\n    \"oldPassword\":\"12345678\"\n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}auth/reset-password",
+					"host": [
+						"{{url}}auth"
+					],
+					"path": [
+						"reset-password"
 					]
 				}
 			},
