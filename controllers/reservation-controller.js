@@ -23,6 +23,8 @@ async function createReservationPayment(req, res) {
     }
     const { seats } = req.body;
 
+    await match.canUserReserve(req.user._id);
+
     for (const seat of seats) {
         const { x, y } = seat;
         match.canReserve(x, y);
@@ -38,6 +40,7 @@ async function createReservationPayment(req, res) {
     }).save();
 
     new AppResponse(res, { paypalOrderId }, 201).send();
+
 }
 
 async function status(req, res) {
@@ -89,6 +92,8 @@ async function captureReservation(req, res) {
     //     throw new AppError("Not your Order", 400);
     // }
     const { user, seats } = order;
+    await match.canUserReserve(user._id);
+    
     const reservations = [];
     for (let seat of seats) {
         const reservation = match.reserve(user, seat.x, seat.y);

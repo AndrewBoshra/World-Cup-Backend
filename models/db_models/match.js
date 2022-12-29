@@ -7,6 +7,7 @@ const Schema = mongoose.Schema;
 const Team = require("./team");
 const Stadium = require("./stadium");
 const { dateDiffInDays } = require("../../utils");
+const MATCH_DURATION = 5;
 
 const reservation = {
     user: {
@@ -183,6 +184,15 @@ matchSchema.plugin(require("mongoose-autopopulate"));
 
 const Match = mongoose.model("Match", matchSchema);
 
+Match.getMatchesDuring=function(start,end){
+    return Match.find({
+        date:{
+            $gte:start,
+            $lt: end,
+        }
+    });
+}
+
 Match.prototype.getReservation = function (x, y) {
     const { reservations } = this;
     return reservations.find((r) => r.seat.x == x && r.seat.y == y);
@@ -198,15 +208,34 @@ Match.prototype.getUserReservations = function (user) {
 };
 
 Match.prototype.canReserve = function (x, y) {
-
     this.stadium.validateSeat({x,y});
-
+    
     if (this.isSeatReserved(x, y)) {
         throw new AppError(`Seat (${x},${y}) is already reserved`, 400);
     }
     if (this.date < new Date()) {
         throw new AppError(`This match already played`, 400);
     }
+    
+};
+
+Match.prototype.canUserReserve = async function ( user) {
+    const start = new Date(this.date);
+    const end = new Date(start);
+
+    end.setHours(start.getHours() + MATCH_DURATION);
+    start.setHours(start.getHours() - MATCH_DURATION);
+
+    const matches = await Match.getMatchesDuring(start, end).select("reservations").lean();
+    const reservations = matches
+        .map((m) => m.reservations.map(r => { return {...r,match: m._id} }))
+        .reduce((s, r) => [...s, ...r]);
+
+    const userReservation = reservations.find((r) => r.user.equals(user) && ! r.match.equals(this.id));
+
+    if (userReservation)
+        throw new AppError(`You already has reservation during this match`, 400);
+
 };
 
 Match.prototype.reserve = function (user, x, y) {
