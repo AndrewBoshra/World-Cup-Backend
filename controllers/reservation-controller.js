@@ -142,7 +142,8 @@ async function cancelReservation(req, res) {
 
 async function getUserReservations(req,res){
     const { user } = req;
-    const orders = await Order.find({ user }).sort("-updatedAt").populate("match");
+    // const orders = await Order.find({ user }).sort("-updatedAt").populate("match");
+    const orders = await Order.find({ user, isConfirmed:true }).sort("-updatedAt").populate("match");
 
     new AppResponse(res, orders.map(createOrderViewModel), 200).send();
 
