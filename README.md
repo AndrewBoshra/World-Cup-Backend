@@ -1,45 +1,30 @@
-# World Cup Matches Backend
-This backend application was built using Express.js, MongoDB, and JWT authentication. It includes Paypal payment integration and allows for the management of stadium data, team data, match data, user reservations, and user management.
+# World Cup Backend
 
-### Installation
-Clone the repo: git clone https://github.com/AndrewBoshra/World-Cup-Backend.git
-Install dependencies
+Backend for a World Cup ticketing platform — stadiums, teams, matches, seat reservations and payments.
+
+## Stack
+
+Express · MongoDB (Mongoose) · JWT · PayPal Checkout SDK · multer
+
+## Features
+
+- JWT authentication with role-based access for users and administrators
+- Stadium, team and match management
+- Seat reservation against a match, with availability handling
+- Payment through the PayPal Checkout API
+- Image upload via multer
+- Database seeding from `data-seed.json`
+
+## Running it
 
 ```bash
-  npm install
+npm install
+node seeder.js     # optional: seed reference data
+npm run start
 ```
 
-### Configuration
-Before running the application, you will need to configure several environment variables:
+Configuration (Mongo URI, JWT secret, PayPal credentials) comes from environment variables.
 
+## API
 
-PORT: Optional, the port number to run the server on (default is 3000)  
-ENV: The environment mode - either "development" or "production"  
-MONGO_USER: The username for your MongoDB database  
-MONGO_PASSWORD: The password for your MongoDB database  
-MONGO_URL: The URL for your MongoDB database  
-JWT_PASSWORD: The secret key used to sign and verify JWTs  
-ROOT_URL: The root URL for the application  
-IMAGE_UPLOADS: The directory path for uploaded images  
-PAYPAL_CLIENT_ID: The client ID for your PayPal REST API integration  
-PAYPAL_CLIENT_SECRET: The client secret for your PayPal REST API integration  
- 
-```env
-You can create a .env file in the root directory of the project to set these environment variables. Here's an example:
-PORT=3000
-ENV=development
-MONGO_USER=myusername
-MONGO_PASSWORD=mypassword
-MONGO_URL=mongodb://localhost/world-cup-matches
-JWT_PASSWORD=my-secret-key
-ROOT_URL=http://localhost:3000
-IMAGE_UPLOADS=/uploads
-PAYPAL_CLIENT_ID=your-client-id
-PAYPAL_CLIENT_SECRET=your-client-secret
-
-```
-Running the Application
-To start the server, run 
-```bash
-  npm start
-```
+A Postman collection covering every endpoint is included as `Fifa.postman_collection.json`.
